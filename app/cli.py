@@ -1,0 +1,49 @@
+import typer
+from app.database import create_db_and_tables, get_session, drop_all
+from app.models import User
+from fastapi import Depends
+from sqlmodel import select
+from sqlalchemy.exc import IntegrityError
+
+cli = typer.Typer()
+
+@cli.command()
+def initialize():
+    with get_session() as db: # Get a connection to the database
+        drop_all() # delete all tables
+        create_db_and_tables() #recreate all tables
+        bob = User('bob', 'bob@mail.com', 'bobpass') # Create a new user (in memory)
+        db.add(bob) # Tell the database about this new data
+        db.commit() # Tell the database persist the data
+        db.refresh(bob) # Update the user (we use this to get the ID from the db)
+        print("Database Initialized")
+
+@cli.command()
+def get_user(username:str):
+    # The code for task 5.1 goes here. Once implemented, remove the line below that says "pass"
+    pass
+
+@cli.command()
+def get_all_users():
+    # The code for task 5.2 goes here. Once implemented, remove the line below that says "pass"
+    pass
+
+
+@cli.command()
+def change_email(username: str, new_email:str):
+    # The code for task 6 goes here. Once implemented, remove the line below that says "pass"
+    pass
+
+@cli.command()
+def create_user(username: str, email:str, password: str):
+    # The code for task 7 goes here. Once implemented, remove the line below that says "pass"
+    pass
+
+@cli.command()
+def delete_user(username: str):
+    # The code for task 8 goes here. Once implemented, remove the line below that says "pass"
+    pass
+
+
+if __name__ == "__main__":
+    cli()

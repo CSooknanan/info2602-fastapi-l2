@@ -1,1 +1,5 @@
-# info2602-fastapi-l2
+# Info 2602 Lab 2
+
+This is the starter codebase for Lab 2.
+
+Use this workspace as a starter to complete the tasks in the lab
